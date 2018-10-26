@@ -1,15 +1,23 @@
 import React, { Component } from "react";
 
 class Counter extends Component {
-  //state = {}
+  state = {
+    count: 0,
+    imageUrl: "https://picsum.photos/200"
+  };
+
   render() {
     React.createElement("div");
     return (
-      <div>
-        <h1>Hello caralho</h1>
-        <button>Increment</button>
-      </div>
+      <React.Fragment>
+        <span className="badge badge-primary m-2">{this.formatCount()}</span>
+        <button className="btn btn-secondary btn-sm">Increment</button>
+      </React.Fragment>
     );
+  }
+  formatCount() {
+    const { count } = this.state;
+    return count === 0 ? "Zero" : count;
   }
 }
 
