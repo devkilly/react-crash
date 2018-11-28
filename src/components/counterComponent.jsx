@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class Counter extends Component {
   state = {
-    count: 0,
+    count: this.props.value,
     tags: ["tag1", "tag2", "tag3"]
   };
 
@@ -10,11 +10,6 @@ class Counter extends Component {
     fontSize: "10px",
     fontWeight: "bold"
   };
-  //super() constrói a parte herdada de Component
-  constructor() {
-    super();
-    this.state.count = 0;
-  }
   renderTags() {
     if (this.state.tags.length === 0) return <b>There are no tags!</b>;
     else
@@ -32,9 +27,12 @@ class Counter extends Component {
     this.setState({ count: this.state.count + 1 });
   };
 
+  //*********************************************************** */
   render() {
+    console.log("props:", this.props);
     return (
       <div>
+        {this.props.children}
         <span style={this.styles} className={this.getBadgeClasses()}>
           {this.formatCount()}
         </span>
