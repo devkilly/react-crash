@@ -3,26 +3,62 @@ import React, { Component } from "react";
 class Counter extends Component {
   state = {
     count: 0,
-    imageUrl: "https://picsum.photos/200"
+    tags: ["tag1", "tag2", "tag3"]
   };
+
   styles = {
-    fontSize: 10,
+    fontSize: "10px",
     fontWeight: "bold"
+  };
+  //super() constrói a parte herdada de Component
+  constructor() {
+    super();
+    this.state.count = 0;
+  }
+  renderTags() {
+    if (this.state.tags.length === 0) return <b>There are no tags!</b>;
+    else
+      return (
+        <ul>
+          {this.state.tags.map(tag => (
+            <li key={tag}>{tag}</li>
+          ))}
+        </ul>
+      );
+  }
+  // Método para incrementar o contador pelo botao
+  handleIncrement = () => {
+    console.log("Increment Clicked");
+    this.setState({ count: this.state.count + 1 });
   };
 
   render() {
-    React.createElement("div");
     return (
-      <React.Fragment>
-        <span style={this.styles} className="badge badge-primary m-2">
+      <div>
+        <span style={this.styles} className={this.getBadgeClasses()}>
           {this.formatCount()}
         </span>
-        <button className="btn btn-secondary btn-sm">Increment</button>
-      </React.Fragment>
+
+        <button
+          onClick={this.handleIncrement}
+          className="btn btn-secondary btn-sm"
+        >
+          Increment
+        </button>
+        {this.renderTags()}
+      </div>
     );
   }
+
+  getBadgeClasses() {
+    let classes = "badge m-2 badge-";
+    classes += this.state.count === 0 ? "warning" : "primary";
+    return classes;
+  }
+
   formatCount() {
-    const { count } = this.state;
+    const { count } = this.state; // local variable for count in state
+
     return count === 0 ? "Zero" : count;
   }
 }
